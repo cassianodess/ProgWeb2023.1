@@ -41,5 +41,22 @@ $whiteText: #ececf1;
             text-align: center;
         }
 
+        .main-top {
+            height: 500px;
+        }
+
+        .main-bottom {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            textarea {
+                width: 90%;
+                padding: 10px 0 10px 10px;
+                outline: none;
+                resize: none;
+            }
+            
+        }
+
     }
 }
