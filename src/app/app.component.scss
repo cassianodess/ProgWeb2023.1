@@ -1,7 +1,4 @@
-$darkBlue: #343541;
-$darkSideBar: #202123;
-$whiteText: #ececf1;
-$separator: #4d4d4f;
+@import "../styles.scss";
 
 .container {
     width: 100vw;
@@ -22,11 +19,9 @@ $separator: #4d4d4f;
             width: 100%;
         }
 
-        .bottom {
-            border-top: 1px solid $separator;
-            button {
-                margin-top: 10px;
-            }
+        .separator {
+            height: 5px;
+            border-top: 2px solid $separator;
         }
 
     }
@@ -57,13 +52,13 @@ $separator: #4d4d4f;
                 padding: 10px 0 10px 10px;
                 outline: none;
                 resize: none;
-                background-color: #40414f;
+                background-color: $inputBackground;
                 border: none;
                 border-radius: 5px;
                 color: $whiteText;
                 
                 &::placeholder {
-                    color: $whiteText;
+                    color: $placeholderColor;
                 }
                 
             }

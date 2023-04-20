@@ -1,0 +1,18 @@
+@import "../../../styles.scss";
+
+button {
+    width: 100%;
+    padding: 12px;
+    text-align: start;
+    color: $whiteText;
+    background-color: $buttonColor;
+    outline: none;
+    border-radius: 4px;
+    margin-top: 10px;
+
+    cursor: pointer;
+
+    i {
+        margin-right: 10px;
+    }
+}
