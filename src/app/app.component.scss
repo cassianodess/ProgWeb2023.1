@@ -1,6 +1,7 @@
 $darkBlue: #343541;
 $darkSideBar: #202123;
 $whiteText: #ececf1;
+$separator: #4d4d4f;
 
 .container {
     width: 100vw;
@@ -22,7 +23,7 @@ $whiteText: #ececf1;
         }
 
         .bottom {
-            border-top: 1px solid $whiteText;
+            border-top: 1px solid $separator;
             button {
                 margin-top: 10px;
             }
@@ -43,17 +44,28 @@ $whiteText: #ececf1;
 
         .main-top {
             height: 500px;
+            padding-top: 50px;
         }
 
-        .main-bottom {
+        .main-bottom form {
             padding: 10px;
             display: flex;
             justify-content: center;
-            textarea {
+            input {
                 width: 90%;
+                height: 1.5rem;
                 padding: 10px 0 10px 10px;
                 outline: none;
                 resize: none;
+                background-color: #40414f;
+                border: none;
+                border-radius: 5px;
+                color: $whiteText;
+                
+                &::placeholder {
+                    color: $whiteText;
+                }
+                
             }
             
         }
