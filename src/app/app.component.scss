@@ -31,15 +31,22 @@
         display: flex;
         flex-direction: column;
         background-color: $darkBlue;
+        color: $whiteText;
 
         h1 {
-            color: $whiteText;
             text-align: center;
         }
 
         .main-top {
+            h1 {
+                padding-top: 50px;
+            }
+
             height: 500px;
-            padding-top: 50px;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+            }
         }
 
         .main-bottom form {
