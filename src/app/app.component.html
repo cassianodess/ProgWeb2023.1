@@ -19,8 +19,13 @@
 
     <div class="main-bottom">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <!-- <textarea formControlName="question" id="input" type="text" cols="30" rows="5" placeholder="Digite uma mensage..." ></textarea> -->
-        <input formControlName="question" id="input" type="text" placeholder="Digite uma mensage..." />
+        <input 
+        autocomplete="off"
+        formControlName="question"
+        id="input"
+        type="text"
+        placeholder="Digite uma mensage..."
+        />
       </form>
       
       
