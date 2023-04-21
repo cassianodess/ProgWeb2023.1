@@ -1,5 +1,7 @@
+import { AskMeService } from './services/ask-me.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { GPTResponse } from 'src/models/gpt-response';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +20,17 @@ export class AppComponent implements OnInit {
 
   }
 
+  constructor(private service: AskMeService) {
+
+  }
+
 
   public onSubmit(): void {
-    console.log(this.form.get("question")?.value);
+    console.log();
+    this.service.askMe(this.form.get("question")?.value).subscribe({
+      next(response: GPTResponse) {
+        console.log(response);
+      }
+    });
   }
 }
