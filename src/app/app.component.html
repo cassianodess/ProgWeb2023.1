@@ -6,26 +6,26 @@
 
     <div class="bottom">
       <div class="separator"></div>
-      <app-side-button text="Limpar conversas" icon="trash" ></app-side-button>
+      <app-side-button [action]="clearConversation" text="Limpar conversas" icon="trash" ></app-side-button>
       <app-side-button text="Configurações" icon="gear" ></app-side-button>
     </div>
   </div>
 
   <div class="main">
     <div class="main-top">
-      <ng-container *ngIf="false; else elseTemplate">
+      <ng-container *ngIf="!hasQuestions; else elseTemplate">
         <h1>Meu ChatGPT</h1>
         
       </ng-container>
 
       <ng-template #elseTemplate>
-        <div class="question">
+        <div class="question-div">
           <div class="user-photo"></div>
-          <div class="">Pergunta...</div>
+          <p class="question"></p>
         </div>
-        <div class="response">
+        <div class="response-div">
           <div class="chat-photo"></div>
-          <div>Resposta...</div>
+          <p class="response"></p>
         </div>
         
       </ng-template>
@@ -41,6 +41,7 @@
         id="input"
         type="text"
         placeholder="Digite uma mensage..."
+        required="true"
         />
       </form>
       

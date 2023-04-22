@@ -1,6 +1,6 @@
 import { GPTService } from './services/ask-me.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GPTResponse } from 'src/models/gpt-response';
 
 @Component({
@@ -11,8 +11,9 @@ import { GPTResponse } from 'src/models/gpt-response';
 export class AppComponent implements OnInit {
   public title: string = 'ProgWeb2023.1';
   public isLoading: boolean = false;
+  public hasQuestions: boolean = false;
   public form: FormGroup = new FormGroup({
-    question: new FormControl(''),
+    question: new FormControl('', [Validators.required, Validators.minLength(1), Validators.nullValidator]),
   });
 
   
@@ -24,15 +25,24 @@ export class AppComponent implements OnInit {
 
 
   public onSubmit(): void {
-    this.isLoading = true;
-    this.service.askMe(this.form.get("question")?.value).subscribe({
-      next(response: GPTResponse) {
-        console.log(response);
-      },
-      error(err) {
-        console.error(err)
-      }
-    });
-    this.isLoading = false;
+    if(this.form.valid && (this.form.get("question")?.value as string).trim().length > 0) {
+      this.isLoading = true;
+      this.hasQuestions = true;
+      this.service.askMe(this.form.get("question")?.value).subscribe({
+        next(response: GPTResponse) {
+          (document.querySelector(".question") as HTMLElement).innerHTML = response.question as string;
+          (document.querySelector(".response") as HTMLElement).innerHTML = response.response as string;
+        },
+        error(err) {
+          console.error(err)
+        },
+      });
+      this.form.get("question")?.setValue("");
+      this.isLoading = false;
+    }
+  }
+
+  clearConversation = (): void =>  {
+    this.hasQuestions = false;
   }
 }

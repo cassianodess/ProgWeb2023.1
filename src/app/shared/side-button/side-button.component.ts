@@ -9,5 +9,6 @@ export class SideButtonComponent {
 
   @Input() icon: string = '';
   @Input() text: string = '';
+  @Input() action: Function = () => null;
 
 }
