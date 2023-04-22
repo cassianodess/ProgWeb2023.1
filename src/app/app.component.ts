@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
           (document.querySelector(".response") as HTMLElement).innerHTML = response.response.trim().replaceAll("\n", "<br>") as string;
         },
         error(err) {
-          console.error(err)
+          console.error(err);
         },
       });
       this.form.get("question")?.setValue("");

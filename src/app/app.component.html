@@ -54,14 +54,18 @@
       </ng-container>
 
       <ng-template #elseTemplate>
-        <div class="question-div">
-          <div class="user-photo"></div>
-          <p class="question"></p>
+        <div class="chat-div" *ngIf="!this.isLoading">
+          <div class="question-div">
+            <div class="user-photo"></div>
+            <p class="question"></p>
+          </div>
+          <div class="response-div">
+            <div class="chat-photo"></div>
+            <p class="response"></p>
+          </div>
         </div>
-        <div class="response-div">
-          <div class="chat-photo"></div>
-          <p class="response"></p>
-        </div>
+        <app-loading *ngIf="this.isLoading"></app-loading>
+
         
       </ng-template>
       
