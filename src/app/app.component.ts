@@ -43,6 +43,12 @@ export class AppComponent implements OnInit {
   }
 
   clearConversation = (): void =>  {
+    this.form.get("question")?.setValue('');
     this.hasQuestions = false;
+  }
+
+  public onClick(event: any): void {
+    this.form.get("question")?.setValue(event.target.innerText);
+    // this.onSubmit();
   }
 }

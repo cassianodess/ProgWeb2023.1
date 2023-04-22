@@ -30,6 +30,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: space-evenly;
         background-color: $darkBlue;
         color: $whiteText;
 
@@ -38,14 +39,52 @@
         }
 
         .main-top {
+            padding: 0 50px;
             h1 {
-                padding-top: 50px;
+                padding: 50px 0;
             }
 
             height: 500px;
             overflow-y: scroll;
             &::-webkit-scrollbar {
                 display: none;
+            }
+
+            .informations {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: start;
+                justify-content: space-evenly;
+                
+                .info {
+                    width: 33%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    h2 {
+                        text-align: center;
+                    }
+
+                    ul li {
+                        list-style: none;
+                        margin: 15px auto;
+                    }
+
+                    li {
+                        width: 60%;
+                        background-color: $inputBackground;
+                        padding: 12px;
+                        border-radius: 2px;
+                        text-align: center;
+                    }
+
+                    li[class="button"] {
+                        cursor: pointer;
+                    }
+                }
             }
 
             .question-div {
