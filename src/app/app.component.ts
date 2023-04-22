@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
       this.service.askMe(this.form.get("question")?.value).subscribe({
         next(response: GPTResponse) {
           (document.querySelector(".question") as HTMLElement).innerHTML = response.question as string;
-          (document.querySelector(".response") as HTMLElement).innerHTML = response.response as string;
+          (document.querySelector(".response") as HTMLElement).innerHTML = response.response.trim().replaceAll("\n", "<br>") as string;
         },
         error(err) {
           console.error(err)
