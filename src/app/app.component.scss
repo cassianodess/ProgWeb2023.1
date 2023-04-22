@@ -47,6 +47,33 @@
             &::-webkit-scrollbar {
                 display: none;
             }
+
+            .question {
+                display: flex;
+                width: 100%;
+                padding: 15px 5px;
+
+                .user-photo {
+                    min-width: 50px;
+                    height: 50px;
+                    margin-right: 20px;
+                    background-color: blue;
+                }
+            }
+
+            .response {
+                display: flex;
+                width: 100%;
+                padding: 15px 5px;
+                background-color: #444654;
+
+                .chat-photo {
+                    min-width: 50px;
+                    height: 50px;
+                    margin-right: 20px;
+                    background-color: $chatColor;
+                }
+            }
         }
 
         .main-bottom form {

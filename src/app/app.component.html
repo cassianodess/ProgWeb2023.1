@@ -13,7 +13,23 @@
 
   <div class="main">
     <div class="main-top">
-      <h1>Meu ChatGPT</h1>
+      <ng-container *ngIf="false; else elseTemplate">
+        <h1>Meu ChatGPT</h1>
+        
+      </ng-container>
+
+      <ng-template #elseTemplate>
+        <div class="question">
+          <div class="user-photo"></div>
+          <div class="">Pergunta...</div>
+        </div>
+        <div class="response">
+          <div class="chat-photo"></div>
+          <div>Resposta...</div>
+        </div>
+        
+      </ng-template>
+      
       
     </div>
 

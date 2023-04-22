@@ -8,14 +8,14 @@ import { GPTResponse } from 'src/models/gpt-response';
 @Injectable({
   providedIn: 'root'
 })
-export class AskMeService {
+export class GPTService {
   
   url: string = `${environment.urlBase}/ask-me`;
 
   constructor(private http: HttpClient) {}
 
   public askMe(question: string): Observable<GPTResponse> {
-    return this.http.post<GPTResponse>(this.url, question, {
+    return this.http.post<GPTResponse>(this.url, {"question": question}, {
       headers: {
         "Authorization": `Bearer ${environment.secret}`
       }
