@@ -29,16 +29,18 @@ export class AppComponent implements OnInit {
       this.isLoading = true;
       this.hasQuestions = true;
       this.service.askMe(this.form.get("question")?.value).subscribe({
-        next(response: GPTResponse) {
+        next: (response: GPTResponse) => {
           (document.querySelector(".question") as HTMLElement).innerHTML = response.question as string;
           (document.querySelector(".response") as HTMLElement).innerHTML = response.response.trim().replaceAll("\n", "<br>") as string;
         },
-        error(err) {
+        error: (err) => {
           console.error(err);
         },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
       this.form.get("question")?.setValue("");
-      this.isLoading = false;
     }
   }
 
@@ -49,6 +51,6 @@ export class AppComponent implements OnInit {
 
   public onClick(event: any): void {
     this.form.get("question")?.setValue(event.target.innerText);
-    // this.onSubmit();
+    this.onSubmit();
   }
 }

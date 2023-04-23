@@ -54,7 +54,7 @@
       </ng-container>
 
       <ng-template #elseTemplate>
-        <div class="chat-div" *ngIf="!this.isLoading">
+        <div [style]="this.isLoading ? 'display: none' : 'display: block'" class="chat-div">
           <div class="question-div">
             <div class="user-photo"></div>
             <p class="question"></p>
