@@ -1,24 +1,25 @@
-import { GPTService } from './services/ask-me.service';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { GPTResponse } from 'src/models/gpt-response';
+import { GPTService } from "./services/ask-me.service";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { GPTResponse } from "src/models/gpt-response";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  public title: string = 'ProgWeb2023.1';
+  public title: string = "ProgWeb2023.1";
   public isLoading: boolean = false;
   public hasQuestions: boolean = false;
+  public themeColor: string = sessionStorage.getItem("themeColor") || "dark";
   public form: FormGroup = new FormGroup({
-    question: new FormControl('', [Validators.required, Validators.minLength(1), Validators.nullValidator]),
+    question: new FormControl("", [Validators.required, Validators.minLength(1), Validators.nullValidator]),
   });
 
   
   ngOnInit(): void {
-
+    this.initTheme();
   }
 
   constructor(private service: GPTService) {}
@@ -45,7 +46,7 @@ export class AppComponent implements OnInit {
   }
 
   clearConversation = (): void =>  {
-    this.form.get("question")?.setValue('');
+    this.form.get("question")?.setValue("");
     this.hasQuestions = false;
   }
 
@@ -53,4 +54,31 @@ export class AppComponent implements OnInit {
     this.form.get("question")?.setValue(event.target.innerText);
     this.onSubmit();
   }
+
+  public initTheme(): void {
+
+    if(this.themeColor == "dark") {
+      this.themeColor = "dark";
+    } else {
+      this.themeColor = "light";
+    }
+    sessionStorage.setItem("themeColor", this.themeColor);
+
+  }
+
+  public toggleTheme(): void {
+    let main: HTMLElement = (document.querySelector(".main") as HTMLElement);
+
+    if(sessionStorage.getItem("themeColor") == "dark") {
+      console.log("de dark para light");
+      // main.style.backgroundColor = "#fff";
+      this.themeColor = "light";
+    } else {
+      console.log("de light para dark");
+      this.themeColor = "dark";
+    }
+    sessionStorage.setItem("themeColor", this.themeColor);
+  }
+
+  
 }

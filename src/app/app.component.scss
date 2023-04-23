@@ -24,6 +24,10 @@
             border-top: 2px solid $separator;
         }
 
+        .top{}
+
+        .bottom {}
+
     }
 
     .main {
@@ -95,8 +99,12 @@
                 .user-photo {
                     min-width: 50px;
                     height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     margin-right: 20px;
-                    background-color: blue;
+                    background-color: $userBackground;
+                    border-radius: 5px;
                 }
             }
 
@@ -105,12 +113,18 @@
                 width: 100%;
                 padding: 15px 5px;
                 background-color: #444654;
-
+                
                 .chat-photo {
                     min-width: 50px;
                     height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     margin-right: 20px;
                     background-color: $chatColor;
+                    border-radius: 5px;
+
+
                 }
             }
         }
