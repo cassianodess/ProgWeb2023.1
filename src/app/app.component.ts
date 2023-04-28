@@ -65,21 +65,19 @@ export class AppComponent implements OnInit {
       this.themeColor = "light";
     }
     sessionStorage.setItem("themeColor", this.themeColor);
+    this.setTheme();
 
   }
 
-  public toggleTheme(): void {
-    let main: HTMLElement = (document.querySelector(".main") as HTMLElement);
-
+  toggleTheme = (): void =>  {
     if(sessionStorage.getItem("themeColor") == "dark") {
-      console.log("de dark para light");
-      // main.style.backgroundColor = "#fff";
       this.themeColor = "light";
+      sessionStorage.setItem("themeColor", "light");
     } else {
-      console.log("de light para dark");
       this.themeColor = "dark";
+      sessionStorage.setItem("themeColor", "dark");
     }
-    sessionStorage.setItem("themeColor", this.themeColor);
+    this.setTheme();
     this.closeMenuWhenClick();
 
   }
@@ -99,6 +97,16 @@ export class AppComponent implements OnInit {
     if(sideBar.getAttribute("show")) {
       sideBar.removeAttribute("show");
     }
+  }
+
+  public setTheme(): void {
+    let main: HTMLElement = (document.querySelector(".main") as HTMLElement);
+    if(sessionStorage.getItem("themeColor") == "light") {
+      main.setAttribute("theme", "light");
+    } else {
+      main.removeAttribute("theme");
+    }
+
   }
 
   

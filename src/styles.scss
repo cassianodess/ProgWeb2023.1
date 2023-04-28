@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+p, h1, q, div, button, input  {
+    font-family: 'Roboto', sans-serif;
+}
+
 $buttonColor: #ffffff1a;
 $darkBlue: #343541;
 $darkSideBar: #202123;
@@ -13,3 +17,4 @@ $inputBackground: #40414f;
 $placeholderColor: #8e8ea0;
 $chatColor: #10a37e;
 $userBackground: #f0c40f;
+$lightColor: #f7f7f8;

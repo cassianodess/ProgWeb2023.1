@@ -60,6 +60,21 @@
     }
 }
 
+.main[theme="light"] {
+    background-color: #fff;
+    color: #000;
+
+    .info li {
+        background-color: $lightColor;
+    }
+
+    .main-bottom form input {
+        background-color: $lightColor;
+        color: #000;
+
+    }
+}
+
 .main-bottom {
     margin-top: auto;
     margin-bottom: 3%;
@@ -68,6 +83,7 @@
         padding: 10px;
         display: flex;
         justify-content: center;
+
         input {
             width: 90%;
             height: 1.5rem;
@@ -78,13 +94,15 @@
             border: none;
             border-radius: 5px;
             color: $whiteText;
-    
+            border: 1px solid #8e8ea0;
+
+
             &::placeholder {
                 color: $placeholderColor;
             }
-    
+
         }
-    
+
     }
 
 }
@@ -201,7 +219,7 @@
         animation: hideMenu .5s ease;
     }
 
-    
+
     .sidebar[show="true"] {
         width: 80%;
         top: 0px;
@@ -231,7 +249,7 @@
         from {
             left: -276px;
         }
-        
+
         to {
             left: 0;
         }
@@ -241,9 +259,9 @@
         from {
             left: 0;
             height: 100%;
-            
+
         }
-        
+
         to {
             left: -276px;
             height: 100%;
