@@ -48,6 +48,8 @@ export class AppComponent implements OnInit {
   clearConversation = (): void =>  {
     this.form.get("question")?.setValue("");
     this.hasQuestions = false;
+    this.closeMenuWhenClick();
+
   }
 
   public onClick(event: any): void {
@@ -78,15 +80,24 @@ export class AppComponent implements OnInit {
       this.themeColor = "dark";
     }
     sessionStorage.setItem("themeColor", this.themeColor);
+    this.closeMenuWhenClick();
+
   }
 
   public toggleMenu(): void {
     let sideBar: HTMLElement = document.querySelector(".sidebar") as HTMLElement;
-
+    
     if(sideBar.getAttribute("show")) {
       sideBar.removeAttribute("show");
     } else {
       sideBar.setAttribute("show", "true");
+    }
+  }
+  
+  public closeMenuWhenClick(): void {
+    let sideBar: HTMLElement = document.querySelector(".sidebar") as HTMLElement;
+    if(sideBar.getAttribute("show")) {
+      sideBar.removeAttribute("show");
     }
   }
 

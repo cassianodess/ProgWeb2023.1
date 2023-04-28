@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="main">
+    <div class="main" (click)="closeMenuWhenClick()">
       <div class="main-top">
         <ng-container *ngIf="!hasQuestions; else elseTemplate">
           <h1>Meu ChatGPT</h1>
