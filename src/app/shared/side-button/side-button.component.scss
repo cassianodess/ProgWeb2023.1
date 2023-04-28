@@ -1,11 +1,9 @@
 @import "../../../styles.scss";
 
-button {
-    width: 100%;
+.button {
     padding: 12px;
     text-align: start;
     color: $whiteText;
-    background-color: $buttonColor;
     outline: none;
     border-radius: 4px;
     margin-top: 10px;
@@ -14,5 +12,10 @@ button {
 
     i {
         margin-right: 10px;
+        font-weight: 100;
+    }
+
+    &:hover {
+        background-color: #2a2b32;
     }
 }
