@@ -45,6 +45,9 @@ export class AppComponent implements OnInit {
           error: (err) => {
             this.clearConversation();
             console.error(err);
+            this.isLoading = false;
+            this.hasQuestions = false;
+
           },
           complete: () => {
             this.isLoading = false;
