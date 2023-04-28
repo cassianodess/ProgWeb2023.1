@@ -4,7 +4,6 @@
     width: 100vw;
     height: 100vh;
     max-height: 100vh;
-
     &::-webkit-scrollbar {
         display: none;
     }
@@ -116,7 +115,7 @@
     padding: 0 50px;
 
     h1 {
-        padding: 10px 0 50px 0;
+        padding: 20px 0;
     }
 
     overflow-y: scroll;
@@ -125,6 +124,33 @@
         display: none;
     }
 
+}
+
+.scroll-down {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    border: 1px solid $lightColor;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 100px;
+    background-color: $lightColor;
+    color: $darkBlue;
+    
+    &[theme="light"] {
+        border: 1px solid $darkBlue;
+        background-color: $darkBlue;
+        color: $lightColor
+    }
+
+    i {
+        user-select: none;
+        pointer-events: none;
+    }
 }
 
 .informations {

@@ -85,6 +85,9 @@
               <p class="response">{{conversation.response}}</p>
             </div>
           </div>
+          <div [attr.theme]="this.themeColor" (click)="scrollToBottom()" class="scroll-down">
+            <i class="fa fa-regular fa-angle-down"></i>
+          </div>
           <app-loading [theme]="this.themeColor" *ngIf="this.isLoading"></app-loading>
 
 

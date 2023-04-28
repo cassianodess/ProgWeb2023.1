@@ -43,41 +43,46 @@ export class AppComponent implements OnInit {
             });
           },
           error: (err) => {
+            this.clearConversation();
             console.error(err);
           },
           complete: () => {
             this.isLoading = false;
-            this.scrollToBottom(document.querySelector(".main-top") as HTMLElement);
-            
+            this.scrollToBottom();
           }
         });
       this.form.get("question")?.setValue("");
     }
   }
 
-  scrollToBottom = (element: HTMLElement) => {
+  scrollToBottom = () => {
+    let mainTop = document.querySelector(".main-top") as HTMLElement;
     setTimeout(() => {
-      element.scrollTo(0, element.scrollHeight);
+      mainTop.scrollTo({
+        behavior: 'smooth',
+        top: mainTop.scrollHeight,
+        left: 0,
+      });
     }, 200);
   }
 
   clearConversation = (): void => {
-    if (this.conversations.length > 0) {
-      this.isLoading = true;
-      this.service.clearCache()
-        .subscribe({
-          next: (response) => {
-            this.form.get("question")?.setValue("");
-            this.conversations = [];
-            this.hasQuestions = false;
-            this.closeMenuWhenClick();
-          },
-          complete: () => {
-            this.isLoading = false;
-          }
+    this.isLoading = true;
+    this.service.clearCache()
+      .subscribe({
+        next: (response) => {
+          this.form.get("question")?.setValue("");
+          this.conversations = [];
+          this.hasQuestions = false;
+          this.closeMenuWhenClick();
+        },
+        error: (err) => console.error(err),
+        complete: () => {
+          this.isLoading = false;
+          this.closeMenuWhenClick();
+        }
 
-        });
-    }
+      });
 
   }
 
