@@ -1,15 +1,18 @@
 <div class="window">
   <div class="menu">
-    <div class="menu-button">
+    <div (click)="this.toggleMenu()" class="menu-button">
       <i class="fa fa-solid fa-bars"></i>
     </div>
     <div>&nbsp;</div>
   </div>
-
+  
   <div class="container">
     <div class="sidebar">
       <div class="top">
         <app-side-button text="Novo chat" icon="plus"></app-side-button>
+        <div (click)="toggleMenu()" class="close-menu">
+          <p>X</p>
+        </div>
       </div>
 
       <div class="bottom">

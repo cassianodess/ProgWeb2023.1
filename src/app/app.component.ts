@@ -80,5 +80,15 @@ export class AppComponent implements OnInit {
     sessionStorage.setItem("themeColor", this.themeColor);
   }
 
+  public toggleMenu(): void {
+    let sideBar: HTMLElement = document.querySelector(".sidebar") as HTMLElement;
+
+    if(sideBar.getAttribute("show")) {
+      sideBar.removeAttribute("show");
+    } else {
+      sideBar.setAttribute("show", "true");
+    }
+  }
+
   
 }
