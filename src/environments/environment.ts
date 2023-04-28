@@ -1,3 +1,5 @@
 export const environment = {
-    urlBase: ""
+    urlBase: "https://my-chatgpt-api.fly.dev/api",
+    secret: "secret",
+    production: true,
 };
