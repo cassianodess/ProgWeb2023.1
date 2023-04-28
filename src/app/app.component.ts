@@ -47,11 +47,18 @@ export class AppComponent implements OnInit {
           },
           complete: () => {
             this.isLoading = false;
-            this.conversations.map(x => x.response.replaceAll("\n", "<br>"));
+            this.scrollToBottom(document.querySelector(".main-top") as HTMLElement);
+            
           }
         });
       this.form.get("question")?.setValue("");
     }
+  }
+
+  scrollToBottom = (element: HTMLElement) => {
+    setTimeout(() => {
+      element.scrollTo(0, element.scrollHeight);
+    }, 200);
   }
 
   clearConversation = (): void => {

@@ -85,7 +85,7 @@
               <p class="response">{{conversation.response}}</p>
             </div>
           </div>
-          <app-loading *ngIf="this.isLoading"></app-loading>
+          <app-loading [theme]="this.themeColor" *ngIf="this.isLoading"></app-loading>
 
 
         </ng-template>
