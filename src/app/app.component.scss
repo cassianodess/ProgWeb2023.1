@@ -56,12 +56,13 @@
 
     h1 {
         text-align: center;
+        margin: 20px 0;
     }
 }
 
 .main-bottom {
     margin-top: auto;
-    margin-bottom: 50px;
+    margin-bottom: 3%;
 
     form {
         padding: 10px;
@@ -95,7 +96,6 @@
         padding: 10px 0 50px 0;
     }
 
-    // height: 500px;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
