@@ -1,6 +1,7 @@
-import { GPTService } from "./services/ask-me.service";
+import { GPTService } from "./services/gpt.service";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Conversation } from "src/models/conversation";
 import { GPTResponse } from "src/models/gpt-response";
 
 @Component({
@@ -17,38 +18,59 @@ export class AppComponent implements OnInit {
     question: new FormControl("", [Validators.required, Validators.minLength(1), Validators.nullValidator]),
   });
 
-  
+  public conversations: Conversation[] = [];
+
+
   ngOnInit(): void {
     this.initTheme();
   }
 
-  constructor(private service: GPTService) {}
+  constructor(private service: GPTService) { }
 
 
   public onSubmit(): void {
-    if(this.form.valid && (this.form.get("question")?.value as string).trim().length > 0) {
+    if (this.form.valid && (this.form.get("question")?.value as string).trim().length > 0) {
       this.isLoading = true;
       this.hasQuestions = true;
-      this.service.askMe(this.form.get("question")?.value).subscribe({
-        next: (response: GPTResponse) => {
-          (document.querySelector(".question") as HTMLElement).innerHTML = response.question as string;
-          (document.querySelector(".response") as HTMLElement).innerHTML = response.response.trim().replaceAll("\n", "<br>").replaceAll("AI:", "").replaceAll("Bot:", "") as string;
-        },
-        error: (err) => {
-          console.error(err);
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
-      });
+      this.service.askMe(this.form.get("question")?.value)
+        .subscribe({
+          next: (response: GPTResponse) => {
+            this.conversations.push({
+              question: response.question as string,
+              response: response.response.trim()
+                .replaceAll("AI:", "")
+                .replaceAll("Bot:", "") as string,
+            });
+          },
+          error: (err) => {
+            console.error(err);
+          },
+          complete: () => {
+            this.isLoading = false;
+            this.conversations.map(x => x.response.replaceAll("\n", "<br>"));
+          }
+        });
       this.form.get("question")?.setValue("");
     }
   }
 
-  clearConversation = (): void =>  {
-    this.form.get("question")?.setValue("");
-    this.hasQuestions = false;
-    this.closeMenuWhenClick();
+  clearConversation = (): void => {
+    if (this.conversations.length > 0) {
+      this.isLoading = true;
+      this.service.clearCache()
+        .subscribe({
+          next: (response) => {
+            this.form.get("question")?.setValue("");
+            this.conversations = [];
+            this.hasQuestions = false;
+            this.closeMenuWhenClick();
+          },
+          complete: () => {
+            this.isLoading = false;
+          }
+
+        });
+    }
 
   }
 
@@ -59,7 +81,7 @@ export class AppComponent implements OnInit {
 
   public initTheme(): void {
 
-    if(this.themeColor == "dark") {
+    if (this.themeColor == "dark") {
       this.themeColor = "dark";
     } else {
       this.themeColor = "light";
@@ -69,8 +91,8 @@ export class AppComponent implements OnInit {
 
   }
 
-  toggleTheme = (): void =>  {
-    if(sessionStorage.getItem("themeColor") == "dark") {
+  toggleTheme = (): void => {
+    if (sessionStorage.getItem("themeColor") == "dark") {
       this.themeColor = "light";
       sessionStorage.setItem("themeColor", "light");
     } else {
@@ -84,24 +106,24 @@ export class AppComponent implements OnInit {
 
   public toggleMenu(): void {
     let sideBar: HTMLElement = document.querySelector(".sidebar") as HTMLElement;
-    
-    if(sideBar.getAttribute("show")) {
+
+    if (sideBar.getAttribute("show")) {
       sideBar.removeAttribute("show");
     } else {
       sideBar.setAttribute("show", "true");
     }
   }
-  
+
   public closeMenuWhenClick(): void {
     let sideBar: HTMLElement = document.querySelector(".sidebar") as HTMLElement;
-    if(sideBar.getAttribute("show")) {
+    if (sideBar.getAttribute("show")) {
       sideBar.removeAttribute("show");
     }
   }
 
   public setTheme(): void {
     let main: HTMLElement = (document.querySelector(".main") as HTMLElement);
-    if(sessionStorage.getItem("themeColor") == "light") {
+    if (sessionStorage.getItem("themeColor") == "light") {
       main.setAttribute("theme", "light");
     } else {
       main.removeAttribute("theme");
@@ -109,5 +131,4 @@ export class AppComponent implements OnInit {
 
   }
 
-  
 }

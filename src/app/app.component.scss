@@ -179,11 +179,16 @@
     }
 }
 
+.response {
+    white-space: pre-wrap;
+}
+
 .response-div {
     display: flex;
     width: 100%;
     padding: 15px 5px;
     background-color: #444654;
+
 
     .chat-photo {
         min-width: 50px;

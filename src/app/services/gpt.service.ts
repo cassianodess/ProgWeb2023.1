@@ -22,6 +22,14 @@ export class GPTService {
     });
   }
 
+  public clearCache(): Observable<boolean> {
+    return this.http.get<boolean>( `${environment.urlBase}/clear-cache`, {
+      headers: {
+        "Authorization": `Bearer ${environment.secret}`
+      }
+    });
+  }
+
 
 
 }
