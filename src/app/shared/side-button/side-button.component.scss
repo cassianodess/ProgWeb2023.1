@@ -7,12 +7,13 @@
     outline: none;
     border-radius: 4px;
     margin-top: 10px;
+    display: flex;
 
     cursor: pointer;
 
-    i {
+    .mat-icon {
         margin-right: 10px;
-        font-weight: 100;
+        font-size: 1rem;
     }
 
     &:hover {
