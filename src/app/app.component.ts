@@ -1,13 +1,14 @@
 import { GPTService } from "./services/gpt.service";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Conversation } from "src/models/conversation";
 import { GPTResponse } from "src/models/gpt-response";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
   public title: string = "ProgWeb2023.1";
@@ -25,7 +26,15 @@ export class AppComponent implements OnInit {
     this.initTheme();
   }
 
-  constructor(private service: GPTService) { }
+  constructor(private service: GPTService, private _snackBar: MatSnackBar) { }
+
+  public openSnackBar(message: string, fail: boolean) {
+    this._snackBar.open(message, 'OK', {
+      horizontalPosition: "right",
+      verticalPosition: "top",
+      duration: 3000,
+    });
+  }
 
 
   public onSubmit(): void {
@@ -44,7 +53,7 @@ export class AppComponent implements OnInit {
           },
           error: (err) => {
             this.clearConversation();
-            console.error(err);
+            this.openSnackBar("Erro ao buscar informações.", true);
             this.isLoading = false;
             this.hasQuestions = false;
 
