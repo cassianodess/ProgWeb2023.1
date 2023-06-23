@@ -1,0 +1,347 @@
+@import "/src/styles.scss";
+
+.window {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.menu {
+    display: none;
+}
+
+.sidebar {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    background-color: $darkSideBar;
+    padding: 8px;
+    color: $whiteText;
+
+    button {
+        width: 100%;
+    }
+
+    .separator {
+        height: 5px;
+        border-top: 2px solid $separator;
+    }
+
+    .top {}
+
+    .bottom {}
+
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: $darkBlue;
+    color: $whiteText;
+
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+    }
+}
+
+.main[theme="light"] {
+    background-color: #fff;
+    color: #000;
+
+    .info li {
+        background-color: $lightColor;
+    }
+
+    .main-bottom form input {
+        background-color: $lightColor;
+        color: #000;
+
+    }
+
+
+    .response-div {
+        background-color: $lightColor;
+    }
+}
+
+.main-bottom {
+    margin-top: auto;
+    margin-bottom: 3%;
+
+    form {
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+
+        input {
+            width: 90%;
+            height: 1.5rem;
+            padding: 10px 0 10px 10px;
+            outline: none;
+            resize: none;
+            background-color: $inputBackground;
+            border: none;
+            border-radius: 5px;
+            color: $whiteText;
+            border: 1px solid #8e8ea0;
+
+
+            &::placeholder {
+                color: $placeholderColor;
+            }
+
+        }
+
+    }
+
+}
+
+.main-top {
+    padding: 0 50px;
+
+    h1 {
+        padding: 20px 0;
+    }
+
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+}
+
+.scroll-down {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    border: 1px solid $lightColor;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 100px;
+    background-color: $lightColor;
+    color: $darkBlue;
+    
+    &[theme="light"] {
+        border: 1px solid $darkBlue;
+        background-color: $darkBlue;
+        color: $lightColor
+    }
+
+    i {
+        user-select: none;
+        pointer-events: none;
+    }
+}
+
+.informations {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+.info {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        text-align: center;
+        font-weight: 100;
+    }
+
+    ul li {
+        list-style: none;
+        margin: 15px auto;
+    }
+
+    li {
+        width: 60%;
+        background-color: $inputBackground;
+        padding: 12px;
+        border-radius: 2px;
+        text-align: center;
+    }
+
+    li[class="button"] {
+        cursor: pointer;
+    }
+}
+
+.question-div {
+    display: flex;
+    width: 100%;
+    padding: 15px 5px;
+
+    .user-photo {
+        min-width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        background-color: $userBackground;
+        border-radius: 5px;
+    }
+}
+
+.response {
+    white-space: pre-wrap;
+}
+
+.response-div {
+    display: flex;
+    width: 100%;
+    padding: 15px 5px;
+    background-color: #444654;
+
+
+    .chat-photo {
+        min-width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        background-color: $chatColor;
+        border-radius: 5px;
+
+
+    }
+}
+
+.close-menu {
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+
+    .container {
+        height: calc(100vh - 70px);
+    }
+
+    .informations {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: absolute;
+        top: 0px;
+        left: -276px;
+        animation: hideMenu .5s ease;
+    }
+
+
+    .sidebar[show="true"] {
+        width: 80%;
+        top: 0px;
+        left: 0;
+        height: calc(100vh - 16px);
+        animation: showMenu .5s ease;
+        z-index: 99;
+
+        .close-menu {
+            display: block;
+            position: absolute;
+            right: -50px;
+            top: 20px;
+            cursor: pointer;
+            border: 1px solid $whiteText;
+            padding: 10px;
+            border-radius: 2px;
+        }
+
+        .button {
+            user-select: none;
+            pointer-events: none;
+        }
+    }
+
+    @keyframes showMenu {
+        from {
+            left: -276px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes hideMenu {
+        from {
+            left: 0;
+            height: 100%;
+
+        }
+
+        to {
+            left: -276px;
+            height: 100%;
+        }
+    }
+
+    .info {
+        width: 100%;
+        display: block;
+        margin: 10px 0;
+
+        i {
+            padding-right: 10px;
+        }
+
+        h2 {
+            width: 30%;
+            display: flex;
+            margin: auto;
+            justify-content: space-evenly;
+        }
+    }
+
+    .main-top {
+        height: auto;
+    }
+
+    .menu {
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: auto;
+        background-color: $darkBlue;
+        color: $whiteText;
+        padding: 10px 20px;
+
+        .menu-button {
+            cursor: pointer;
+            font-size: 1.5rem;
+
+        }
+
+    }
+
+}
