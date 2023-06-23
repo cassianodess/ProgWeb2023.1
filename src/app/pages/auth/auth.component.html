@@ -5,7 +5,7 @@
     <mat-tab-group class="box" mat-stretch-tabs>
         <mat-tab label="Entrar">
             <div class="large-box">
-                <mat-form-field>
+                <mat-form-field style="width: 100%;">
                     <mat-label>Email</mat-label>
                     <input type="email" matInput [formControl]="email" placeholder="Ex. pat@example.com">
                     <mat-error *ngIf="isEmailValid()">
@@ -28,7 +28,7 @@
         </mat-tab>
         <mat-tab label="Cadastrar-se">
             <div class="large-box">
-                <mat-form-field>
+                <mat-form-field style="width: 100%;">
                     <mat-label>Email</mat-label>
                     <input type="email" matInput [formControl]="email" placeholder="Ex. pat@example.com">
                     <mat-error *ngIf="isEmailValid()">
