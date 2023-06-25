@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params["id"];
     this.userService.findById(this.id).subscribe({
       next: (user) => {
-        console.log(user)
+        sessionStorage.setItem("userId", user.id as string);
         this.initTheme();
       },
       error: (err) => {
@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout = () => {
+    sessionStorage.clear();
     this.router.navigate(["/auth"]);
   }
 

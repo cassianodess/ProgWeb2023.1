@@ -51,7 +51,7 @@ export class AuthComponent {
     this.service.signIn(this.email.value, this.password.value).subscribe({
       next: (user) => {
         console.log(user);
-        this.router.navigate(["/home/:id", user.id]);
+        this.router.navigate(["/home", user.id]);
         this.openSnackBar("LOGADO", false);
       },
       error: (err) => this.openSnackBar(err, true)
