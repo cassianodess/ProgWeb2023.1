@@ -30,6 +30,7 @@ export class ReverseAuthGuard implements CanActivate {
           )
         );
     }
+    sessionStorage.clear();
     return true;
   }
 

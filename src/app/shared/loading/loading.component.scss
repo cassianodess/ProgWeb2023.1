@@ -3,7 +3,7 @@
 .loading {
     width: 50px;
     height: 50px;
-    border: 5px solid white;
+    border: 5px solid $whiteText;
     border-top: 5px solid $buttonColor;
     border-radius: 50%;
     margin: auto;
@@ -17,7 +17,7 @@
     margin: auto;
     animation: rotate 500ms infinite linear;
     border: 5px solid $darkBlue;
-    border-top: 5px solid white;
+    border-top: 5px solid $whiteText;
 }
 
 @keyframes rotate {

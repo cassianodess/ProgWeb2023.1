@@ -26,7 +26,7 @@
                 <button [disabled]="!isSignInValid()" class="buttons" (click)="onLogin()" mat-raised-button color="primary">Entrar</button>
             </div>
         </mat-tab>
-        <mat-tab label="Cadastrar-se">
+        <mat-tab *ngIf="!sentEmail" label="Cadastrar-se">
             <div class="large-box">
                 <mat-form-field style="width: 100%;">
                     <mat-label>Email</mat-label>
@@ -52,7 +52,13 @@
                         <mat-icon style="color: black;">{{hideSignUpConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-                <button [disabled]="!isSignUpValid()" (click)="onSignUp()" class="buttons" mat-raised-button color="primary">Cadastre-se</button>
+                <ng-container *ngIf="isLoading; else elseTemplate">
+                    <app-loading theme="light"></app-loading>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <button [disabled]="!isSignUpValid()" (click)="onSignUp()" class="buttons" mat-raised-button color="primary">Cadastre-se</button>
+                </ng-template>
+                
             </div>
         </mat-tab>
     </mat-tab-group>

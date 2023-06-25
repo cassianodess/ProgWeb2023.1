@@ -20,6 +20,8 @@ export class AuthComponent {
   public hide: boolean = true;
   public hideSignUp: boolean = true;
   public hideSignUpConfirm: boolean = true;
+  public sentEmail: boolean = false;
+  public isLoading: boolean = false;
 
   constructor(private router: Router, private _snackBar: MatSnackBar, private service: AuthService) { }
 
@@ -27,7 +29,6 @@ export class AuthComponent {
     this._snackBar.open(message, 'OK', {
       horizontalPosition: "right",
       verticalPosition: "top",
-      duration: 10000,
     });
   }
 
@@ -54,11 +55,14 @@ export class AuthComponent {
         this.router.navigate(["/home", user.id]);
         this.openSnackBar("LOGADO", false);
       },
-      error: (err) => this.openSnackBar(err, true)
+      error: (err) => {
+        this.openSnackBar(err.error.message, true)
+      }
     });
   }
 
   public onSignUp() {
+    this.isLoading = true;
     let user: User = {
       email: this.emailSignUp.value,
       password: this.passwordSignUp.value
@@ -67,9 +71,18 @@ export class AuthComponent {
     this.service.signUp(user).subscribe({
       next: (user) => {
         this.openSnackBar("Verifique seu e-mail para fazer a verificação", false);
+        this.sentEmail = true;
       },
-      error: (err) => this.openSnackBar(err.message, true)
+      error: (err) => {
+        this.openSnackBar(err.error.message, true);
+      },
+      complete: () => {
+      }
     });
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
+
 
   }
 
