@@ -9,22 +9,27 @@
     <div class="container">
       <div class="sidebar">
         <div class="top">
-          <app-side-button text="Novo chat" icon="plus"></app-side-button>
+          <app-side-button text="Novo chat" icon="add"></app-side-button>
           <div (click)="toggleMenu()" class="close-menu">
             <p>X</p>
           </div>
         </div>
+        <div class="separator"></div>
+
+        <div class="chats">
+          <app-chat text="PERGUNTA" ></app-chat>
+        </div>
   
         <div class="bottom">
           <div class="separator"></div>
-          <app-side-button [action]="clearConversation" text="Limpar conversas" icon="delete"></app-side-button>
+          <app-side-button [action]="clearConversation" text="Limpar conversas" icon="clear_all"></app-side-button>
           <app-side-button [action]="toggleTheme" text="Mudar Tema" icon="settings"></app-side-button>
           <app-side-button [action]="logout" text="Logout" icon="logout"></app-side-button>
         </div>
       </div>
   
       <div class="main" (click)="closeMenuWhenClick()">
-        <div [style]="this.isLoading ? 'height: 100%; display: flex; align-items: center; justify-content: center' : ''"
+        <div [style]="this.isLoading ? 'height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center' : ''"
           class="main-top">
           <ng-container *ngIf="!hasQuestions; else elseTemplate">
             <h1>ChatGPT Crone</h1>

@@ -16,6 +16,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { HomeComponent } from './pages/home/home.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ChatComponent } from './shared/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     LoadingComponent,
     AuthComponent,
     HomeComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
