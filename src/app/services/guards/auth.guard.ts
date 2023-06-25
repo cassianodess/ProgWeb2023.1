@@ -18,11 +18,13 @@ export class AuthGuard implements CanActivate {
           if (user) {
             return true;
           } else {
+            sessionStorage.clear();
             this.router.navigate(["/"]);
             return false;
           }
         }),
         catchError((err) => {
+          sessionStorage.clear();
           this.router.navigate(["/"]);
           return of(false);
         })
