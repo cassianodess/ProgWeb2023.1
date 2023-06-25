@@ -23,14 +23,14 @@
                     </button>
                 </mat-form-field>
 
-                <button class="buttons" (click)="onLogin()" mat-raised-button color="primary">Entrar</button>
+                <button [disabled]="!isSignInValid()" class="buttons" (click)="onLogin()" mat-raised-button color="primary">Entrar</button>
             </div>
         </mat-tab>
         <mat-tab label="Cadastrar-se">
             <div class="large-box">
                 <mat-form-field style="width: 100%;">
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput [formControl]="email" placeholder="Ex. pat@example.com">
+                    <input type="email" matInput [formControl]="emailSignUp" placeholder="Ex. pat@example.com">
                     <mat-error *ngIf="isEmailValid()">
                         Insira um endereço de email válido
                     </mat-error>
@@ -40,7 +40,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Senha</mat-label>
-                    <input [formControl]="password" matInput [type]="hideSignUp ? 'password' : 'text'">
+                    <input [formControl]="passwordSignUp" matInput [type]="hideSignUp ? 'password' : 'text'">
                     <button mat-icon-button matSuffix (click)="hideSignUp = !hideSignUp" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideSignUp">
                         <mat-icon style="color: black;">{{hideSignUp ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -52,7 +52,7 @@
                         <mat-icon style="color: black;">{{hideSignUpConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-                <button (click)="onSignUp()" class="buttons" mat-raised-button color="primary">Cadastre-se</button>
+                <button [disabled]="!isSignUpValid()" (click)="onSignUp()" class="buttons" mat-raised-button color="primary">Cadastre-se</button>
             </div>
         </mat-tab>
     </mat-tab-group>

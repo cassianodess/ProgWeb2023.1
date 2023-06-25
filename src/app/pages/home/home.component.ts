@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GPTService } from 'src/app/services/gpt.service';
+import { UserService } from 'src/app/services/user.service';
 import { Conversation } from 'src/models/conversation';
 import { GPTResponse } from 'src/models/gpt-response';
 
@@ -19,13 +20,26 @@ export class HomeComponent implements OnInit {
     question: new FormControl("", [Validators.required, Validators.minLength(1), Validators.nullValidator]),
   });
   public conversations: Conversation[] = [];
+  public id: string = "";
 
 
   ngOnInit(): void {
-    this.initTheme();
+    this.id = this.activatedRoute.snapshot.params["id"];
+    this.userService.findById(this.id).subscribe({
+      next: (user) => {
+        console.log(user)
+        this.initTheme();
+      },
+      error: (err) => {
+        this.openSnackBar(err.message, true);
+        this.router.navigate(["auth"]);
+      }
+    });
   }
 
-  constructor(private service: GPTService, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private gptService: GPTService, private userService: UserService, private _snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
+
+  }
 
   logout = () => {
     this.router.navigate(["/auth"]);
@@ -44,7 +58,7 @@ export class HomeComponent implements OnInit {
     if (this.form.valid && (this.form.get("question")?.value as string).trim().length > 0) {
       this.isLoading = true;
       this.hasQuestions = true;
-      this.service.askMe(this.form.get("question")?.value)
+      this.gptService.askMe(this.form.get("question")?.value)
         .subscribe({
           next: (response: GPTResponse) => {
             this.conversations.push({
@@ -83,7 +97,7 @@ export class HomeComponent implements OnInit {
 
   clearConversation = (): void => {
     this.isLoading = true;
-    this.service.clearCache()
+    this.gptService.clearCache()
       .subscribe({
         next: (response) => {
           this.form.get("question")?.setValue("");

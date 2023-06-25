@@ -10,12 +10,12 @@ import { environment } from 'src/environments/environment.development';
 })
 export class GPTService {
 
-  url: string = `${environment.urlBase}`;
+  private url: string = `${environment.urlBase}/gpt`;
 
   constructor(private http: HttpClient) { }
 
   public askMe(question: string): Observable<GPTResponse> {
-    return this.http.post<GPTResponse>(`${this.url}/ask-me`, { "question": question }, {
+    return this.http.post<GPTResponse>(`${this.url}`, { "question": question }, {
       headers: {
         "Authorization": `Bearer ${environment.secret}`
       }
