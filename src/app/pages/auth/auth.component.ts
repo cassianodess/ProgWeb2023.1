@@ -20,7 +20,6 @@ export class AuthComponent {
   public hide: boolean = true;
   public hideSignUp: boolean = true;
   public hideSignUpConfirm: boolean = true;
-  public sentEmail: boolean = false;
   public isLoading: boolean = false;
 
   constructor(private router: Router, private _snackBar: MatSnackBar, private service: AuthService) { }
@@ -51,9 +50,7 @@ export class AuthComponent {
   public onLogin() {
     this.service.signIn(this.email.value, this.password.value).subscribe({
       next: (user) => {
-        console.log(user);
         this.router.navigate(["/home", user.id]);
-        this.openSnackBar("LOGADO", false);
       },
       error: (err) => {
         this.openSnackBar(err.error.message, true)
@@ -71,7 +68,14 @@ export class AuthComponent {
     this.service.signUp(user).subscribe({
       next: (user) => {
         this.openSnackBar("Verifique seu e-mail para fazer a verificação", false);
-        this.sentEmail = true;
+        this.emailSignUp.setValue("");
+        this.emailSignUp.markAsUntouched();
+        this.passwordSignUp.setValue("");
+        this.passwordSignUp.markAsUntouched();
+        this.passwordConfirm.setValue("");
+        this.passwordConfirm.markAsUntouched();
+
+        (document.querySelector("div[role='tab']") as HTMLDivElement).click();
       },
       error: (err) => {
         this.openSnackBar(err.error.message, true);
