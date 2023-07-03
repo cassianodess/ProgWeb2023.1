@@ -49,8 +49,9 @@ export class AuthComponent {
 
   public onLogin() {
     this.service.signIn(this.email.value, this.password.value).subscribe({
-      next: (user) => {
-        this.router.navigate(["/home", user.id]);
+      next: (loginResponse) => {
+        sessionStorage.setItem("token", loginResponse.token);
+        this.router.navigate(["/home", loginResponse.user.id]);
       },
       error: (err) => {
         this.openSnackBar(err.error.message, true)

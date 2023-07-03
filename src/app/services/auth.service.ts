@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { LoginResponse } from 'src/models/login-response';
 import { User } from 'src/models/user';
 
 @Injectable({
@@ -17,8 +18,8 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
 
-  public signIn(email:string, password: string): Observable<User> {
-    return this.http.post<User>(this.url, {"email": email, "password": password}, {headers: this.header});
+  public signIn(email:string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.url, {"email": email, "password": password}, {headers: this.header});
   }
 
   public signUp(user: User): Observable<User> {
