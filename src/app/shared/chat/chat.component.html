@@ -1,7 +1,12 @@
-<div class="button" (click)="action()">
-    <mat-icon class="mat-icon" aria-hidden="false" fontIcon="chat_bubble"></mat-icon>
-    <div class="text" >{{text}}</div>
-    <mat-icon style="cursor: pointer;" class="mat-icon action" aria-hidden="false" fontIcon="close"></mat-icon>
-
-
+<div class="button">
+    <div style="user-select: none;">
+        <mat-icon class="mat-icon" aria-hidden="false" fontIcon="chat_bubble"></mat-icon>
+    </div>
+    <div class="text" >
+        {{text}}
+    </div>
+    <div (click)="onDeleteChat()" class="delete-button">
+        X
+    </div>
+    
 </div>

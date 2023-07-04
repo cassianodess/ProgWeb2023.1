@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GPTService } from 'src/app/services/gpt.service';
 import { UserService } from 'src/app/services/user.service';
-import { Conversation } from 'src/models/conversation';
-import { GPTResponse } from 'src/models/gpt-response';
+import { Chat } from 'src/models/chat';
+import { GPTRequestBody } from 'src/models/gpt-response-body';
+import { Message } from 'src/models/message';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,14 @@ import { GPTResponse } from 'src/models/gpt-response';
 })
 export class HomeComponent implements OnInit {
   public isLoading: boolean = false;
-  public hasQuestions: boolean = false;
   public themeColor: string = sessionStorage.getItem("themeColor") || "dark";
   public form: FormGroup = new FormGroup({
     question: new FormControl("", [Validators.required, Validators.minLength(1), Validators.nullValidator]),
   });
-  public conversations: Conversation[] = [];
+  public messages: Message[] = [];
   public id: string = "";
+  public user: User | null = null;
+  public chatId: string | null = null;
 
 
   ngOnInit(): void {
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
     this.userService.findById(this.id).subscribe({
       next: (user) => {
         sessionStorage.setItem("userId", user.id as string);
+        this.user = user;
         this.initTheme();
       },
       error: (err) => {
@@ -37,7 +40,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  constructor(private gptService: GPTService, private userService: UserService, private _snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private userService: UserService, private _snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -58,22 +61,25 @@ export class HomeComponent implements OnInit {
   public onSubmit(): void {
     if (this.form.valid && (this.form.get("question")?.value as string).trim().length > 0) {
       this.isLoading = true;
-      this.hasQuestions = true;
-      this.gptService.askMe(this.form.get("question")?.value)
+      let requestBody: GPTRequestBody = {
+        question: this.form.get("question")?.value,
+        chatId: this.chatId || ""
+      }
+      this.userService.askMe(requestBody)
         .subscribe({
-          next: (response: GPTResponse) => {
-            this.conversations.push({
-              question: response.question as string,
-              response: response.response.trim()
-                .replaceAll("AI:", "")
-                .replaceAll("Bot:", "") as string,
-            });
+          next: (chat: Chat) => {
+            this.messages = chat.messages;
+            // this.messages.push({
+            //   question: response.question as string,
+            //   response: response.response.trim()
+            //     .replaceAll("AI:", "")
+            //     .replaceAll("Bot:", "") as string,
+            // });
           },
           error: (err) => {
             this.clearConversation();
             this.openSnackBar("Erro ao buscar informações.", true);
             this.isLoading = false;
-            this.hasQuestions = false;
 
           },
           complete: () => {
@@ -98,12 +104,11 @@ export class HomeComponent implements OnInit {
 
   clearConversation = (): void => {
     this.isLoading = true;
-    this.gptService.clearCache()
+    this.userService.clearCache()
       .subscribe({
         next: (response) => {
           this.form.get("question")?.setValue("");
-          this.conversations = [];
-          this.hasQuestions = false;
+          this.messages = [];
           this.closeMenuWhenClick();
         },
         error: (err) => this.openSnackBar("Erro ao tentar limpar conversa", true),
@@ -173,5 +178,21 @@ export class HomeComponent implements OnInit {
 
   }
 
+  public onSelectChat(event: Event) {
+    let _chatId: string = (event.target as HTMLDivElement).innerText as string;
+    let messages: Message[] = (this.user?.chats as Chat[]).filter(_chat => (_chat.id === _chatId)).at(0)?.messages as Message[];
+    if(messages) {
+      this.chatId = _chatId;
+      this.messages = [];
+      this.messages = messages;
+      this.scrollToBottom();
+    }
+
+  }
+
+  public newChat() {
+    this.messages = [];
+    this.chatId = null;
+  }
 
 }

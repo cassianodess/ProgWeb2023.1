@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -8,6 +9,13 @@ import { Component, Input } from '@angular/core';
 export class ChatComponent {
 
   @Input() text: string = '';
-  @Input() action: Function = () => null;
+  @Input() chatId: string = '';
+
+  constructor(private service: UserService){}
+
+  public onDeleteChat() {
+    console.log(this.chatId)
+  }
+
 
 }
