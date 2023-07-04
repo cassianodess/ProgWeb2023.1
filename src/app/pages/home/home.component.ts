@@ -58,6 +58,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  public updateChats(event: any) {
+    let updatedChats: Chat[] = event;
+    this.user!.chats = updatedChats;
+    let chat: Chat = this.user?.chats.filter(_chat => _chat.id === this.chatId).at(0) as Chat;
+    if(!chat) {
+      this.newChat();
+    }
+
+  }
+
   public onSubmit(): void {
     if (this.form.valid && (this.form.get("question")?.value as string).trim().length > 0) {
       this.isLoading = true;
@@ -68,13 +78,17 @@ export class HomeComponent implements OnInit {
       this.userService.askMe(requestBody)
         .subscribe({
           next: (chat: Chat) => {
+            if(this.chatId == null) {
+              this.user?.chats?.push(chat);
+              this.chatId = chat.id as string;
+            } else {
+              this.user?.chats?.map(_chat => {
+                if(_chat.id === chat.id) {
+                  _chat.messages = chat.messages;
+                }
+              });
+            }
             this.messages = chat.messages;
-            // this.messages.push({
-            //   question: response.question as string,
-            //   response: response.response.trim()
-            //     .replaceAll("AI:", "")
-            //     .replaceAll("Bot:", "") as string,
-            // });
           },
           error: (err) => {
             this.clearConversation();

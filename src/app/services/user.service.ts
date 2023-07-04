@@ -25,7 +25,7 @@ export class UserService {
   }
 
   public deleteChat(chatId: string): Observable<Chat[]> {
-    return this.http.delete<Chat[]>(`${this.url}/${sessionStorage.getItem("userId") as string}/delete/${chatId}`);
+    return this.http.delete<Chat[]>(`${this.url}/${sessionStorage.getItem("userId") as string}/gpt/delete/${chatId}`);
   }
 
   public clearCache(): Observable<boolean> {

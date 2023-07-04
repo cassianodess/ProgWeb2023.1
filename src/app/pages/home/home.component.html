@@ -18,7 +18,7 @@
         
         <div class="chats">
           <div *ngFor="let chat of user?.chats ">
-            <app-chat (click)="onSelectChat($event)" [chatId]="chat.id!"  text="{{chat.id}}" ></app-chat>
+            <app-chat (click)="onSelectChat($event)" (emmiter)="updateChats($event)" [chatId]="chat.id!"  text="{{chat.id}}" ></app-chat>
           </div>
         </div>
   
