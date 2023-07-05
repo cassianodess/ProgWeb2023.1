@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit {
   }
 
   public onSelectChat(event: Event) {
-    let _chatId: string = (event.target as HTMLDivElement).innerText as string;
+    let _chatId: string = (event.target as HTMLDivElement).id as string;
     let messages: Message[] = (this.user?.chats as Chat[]).filter(_chat => (_chat.id === _chatId)).at(0)?.messages as Message[];
     if(messages) {
       this.chatId = _chatId;

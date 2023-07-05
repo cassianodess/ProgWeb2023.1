@@ -2,7 +2,7 @@
     <div style="user-select: none;">
         <mat-icon class="mat-icon" aria-hidden="false" fontIcon="chat_bubble"></mat-icon>
     </div>
-    <div class="text" >
+    <div [id]="chatId" class="text" >
         {{text}}
     </div>
     <div (click)="onDeleteChat()" class="delete-button">
