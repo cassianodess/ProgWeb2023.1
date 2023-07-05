@@ -117,21 +117,21 @@ export class HomeComponent implements OnInit {
   }
 
   clearConversation = (): void => {
-    this.isLoading = true;
-    this.userService.clearCache()
-      .subscribe({
-        next: (response) => {
-          this.form.get("question")?.setValue("");
-          this.messages = [];
-          this.closeMenuWhenClick();
-        },
-        error: (err) => this.openSnackBar("Erro ao tentar limpar conversa", true),
-        complete: () => {
-          this.isLoading = false;
-          this.closeMenuWhenClick();
-        }
+    // this.isLoading = true;
+    // this.userService.clearCache()
+    //   .subscribe({
+    //     next: (response) => {
+    //       this.form.get("question")?.setValue("");
+    //       this.messages = [];
+    //       this.closeMenuWhenClick();
+    //     },
+    //     error: (err) => this.openSnackBar("Erro ao tentar limpar conversa", true),
+    //     complete: () => {
+    //       this.isLoading = false;
+    //       this.closeMenuWhenClick();
+    //     }
 
-      });
+    //   });
 
   }
 
